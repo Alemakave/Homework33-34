@@ -1,6 +1,6 @@
 package ru.alemakave.hw33;
 
-import ru.alemakave.hw33.exceptions.NotFoundElement;
+import ru.alemakave.hw33.exceptions.NotFoundElementException;
 
 import java.util.Arrays;
 
@@ -69,17 +69,17 @@ public class StringListImpl implements StringList {
 
     @Override
     public String remove(String item) {
-        boolean isFounded = false;
+        int foundedCount = 0;
         for (int i = 0; i < countItems; i++) {
             if (items[i].equals(item)) {
                 items[i] = null;
-                countItems--;
-                isFounded = true;
+                foundedCount++;
             }
         }
-        if (!isFounded) {
-            throw new NotFoundElement(String.format("Элемент %s не найден.", item));
+        if (foundedCount == 0) {
+            throw new NotFoundElementException(String.format("Элемент %s не найден.", item));
         }
+        countItems -= foundedCount;
         compress();
 
         return item;
@@ -162,7 +162,7 @@ public class StringListImpl implements StringList {
 
     @Override
     public String toString() {
-        return Arrays.toString(items);
+        return Arrays.toString(toArray());
     }
 
     /**

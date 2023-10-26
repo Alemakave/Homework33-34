@@ -1,6 +1,7 @@
 package ru.alemakave.hw33;
 
 import org.junit.jupiter.api.Test;
+import ru.alemakave.hw33.exceptions.NotFoundElementException;
 
 import java.util.Arrays;
 
@@ -26,7 +27,7 @@ public class StringListTest {
     }
 
     @Test
-    public void addByIndex() {
+    public void addByIndex_Success() {
         int countItems = 10;
         for (int i = 0; i < countItems; i++) {
             stringList.add("z");
@@ -55,15 +56,57 @@ public class StringListTest {
     }
 
     @Test
+    public void addByIndex_IndexOutOfBoundsException() {
+        int countItems = 10;
+        for (int i = 0; i < countItems; i++) {
+            stringList.add("z");
+        }
+
+        stringList.remove(0);
+        stringList.remove(0);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> stringList.add(9, "t"));
+    }
+
+    @Test
     public void set() {
     }
 
     @Test
-    public void remove() {
+    public void remove_Success() {
+        addByIndex_Success();
+        assertEquals(stringList.remove("z"), "z");
+        assertEquals(stringList.toString(), Arrays.toString(new String[]{"Q", "w", "e", "r", "o", "i", "t", "y", "U", "p"}));
     }
 
     @Test
-    public void testRemove() {
+    public void remove_NotFoundElementException() {
+        addByIndex_Success();
+        assertThrows(NotFoundElementException.class, () -> stringList.remove("j"));
+    }
+
+    @Test
+    public void removeByIndex_Success() {
+        addByIndex_Success();
+        assertEquals(stringList.remove(3), "z");
+        assertEquals(stringList.remove(3), "e");
+        assertEquals(stringList.remove(3), "z");
+        assertEquals(stringList.remove(4), "z");
+        assertEquals(stringList.remove(9), "U");
+        assertEquals(stringList.toString(), Arrays.toString(new String[]{"Q", "w", "z", "r", "o", "i", "t", "y", "z", "z", "z", "p", "z", "z", "z"}));
+    }
+
+    @Test
+    public void removeByIndex_IndexOutOfBoundsException() {
+        int countItems = 10;
+
+        for (int i = 0; i < countItems; i++) {
+            stringList.add("z");
+        }
+
+        stringList.remove(0);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> stringList.remove(9));
     }
 
     @Test
