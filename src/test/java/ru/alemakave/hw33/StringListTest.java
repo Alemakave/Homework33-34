@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StringListTest {
-    private StringList stringList = new StringListImpl();
+    private final StringList stringList = new StringListImpl();
 
     @Test
     public void add_Success() {
@@ -28,10 +28,7 @@ public class StringListTest {
 
     @Test
     public void addByIndex_Success() {
-        int countItems = 10;
-        for (int i = 0; i < countItems; i++) {
-            stringList.add("z");
-        }
+        setupZstring();
 
         assertEquals(stringList.add(4, "t"), "t");
         assertEquals(stringList.toString(), Arrays.toString(new String[]{"z", "z", "z", "z", "t", "z", "z", "z", "z", "z", "z"}));
@@ -57,10 +54,7 @@ public class StringListTest {
 
     @Test
     public void addByIndex_IndexOutOfBoundsException() {
-        int countItems = 10;
-        for (int i = 0; i < countItems; i++) {
-            stringList.add("z");
-        }
+        setup();
 
         stringList.remove(0);
         stringList.remove(0);
@@ -69,40 +63,51 @@ public class StringListTest {
     }
 
     @Test
-    public void set() {
+    public void set_Success() {
+        setup();
+        assertEquals(stringList.set(2, "K"), "K");
+    }
+
+    @Test
+    public void set_IndexOutOfBoundsException() {
+        setup();
+        assertThrows(IndexOutOfBoundsException.class, () -> stringList.set(10, "K"));
     }
 
     @Test
     public void remove_Success() {
-        addByIndex_Success();
+        setupZstring();
+        setup();
+        setupZstring();
         assertEquals(stringList.remove("z"), "z");
-        assertEquals(stringList.toString(), Arrays.toString(new String[]{"Q", "w", "e", "r", "o", "i", "t", "y", "U", "p"}));
+        assertEquals(stringList.toString(), Arrays.toString(new String[]{"Q", "w", "e", "r", "t", "y", "U", "i", "o", "p"}));
     }
 
     @Test
     public void remove_NotFoundElementException() {
-        addByIndex_Success();
+        setupZstring();
+        setup();
+        setupZstring();
         assertThrows(NotFoundElementException.class, () -> stringList.remove("j"));
     }
 
     @Test
     public void removeByIndex_Success() {
-        addByIndex_Success();
+        setupZstring();
+        setup();
+        setupZstring();
+
         assertEquals(stringList.remove(3), "z");
-        assertEquals(stringList.remove(3), "e");
+        assertEquals(stringList.remove(3), "z");
         assertEquals(stringList.remove(3), "z");
         assertEquals(stringList.remove(4), "z");
-        assertEquals(stringList.remove(9), "U");
-        assertEquals(stringList.toString(), Arrays.toString(new String[]{"Q", "w", "z", "r", "o", "i", "t", "y", "z", "z", "z", "p", "z", "z", "z"}));
+        assertEquals(stringList.remove(9), "r");
+        assertEquals(stringList.toString(), Arrays.toString(new String[]{"z", "z", "z", "z", "z", "z", "Q", "w", "e", "t", "y", "U", "i", "o", "p", "z", "z", "z", "z", "z", "z", "z", "z", "z", "z"}));
     }
 
     @Test
     public void removeByIndex_IndexOutOfBoundsException() {
-        int countItems = 10;
-
-        for (int i = 0; i < countItems; i++) {
-            stringList.add("z");
-        }
+        setupZstring();
 
         stringList.remove(0);
 
@@ -111,37 +116,115 @@ public class StringListTest {
 
     @Test
     public void contains() {
+        setup();
+
+        assertTrue(stringList.contains("y"));
     }
 
     @Test
     public void indexOf() {
+        setupZstring();
+        setup();
+        setupZstring();
+
+        stringList.set(5, "g");
+        stringList.set(16, "g");
+
+        assertEquals(stringList.indexOf("g"), 5);
+        assertEquals(stringList.indexOf("l"), -1);
     }
 
     @Test
     public void lastIndexOf() {
+        setupZstring();
+        setup();
+        setupZstring();
+
+        stringList.set(5, "g");
+        stringList.set(16, "g");
+        assertEquals(stringList.lastIndexOf("g"), 16);
+        assertEquals(stringList.lastIndexOf("l"), -1);
     }
 
     @Test
-    public void get() {
+    public void get_Success() {
+        setupZstring();
+        setup();
+        setupZstring();
+
+        assertEquals(stringList.get(16), "U");
     }
 
     @Test
-    public void testEquals() {
+    public void get_IndexOutOfBoundsException() {
+        setupZstring();
+        setup();
+        setupZstring();
+
+        assertThrows(IndexOutOfBoundsException.class, () -> stringList.get(30));
+    }
+
+    @Test
+    public void equals_Success() {
+        setup();
+        StringListImpl newStringList = new StringListImpl("Q", "w", "e", "r", "t", "y", "U", "i", "o", "p");
+        assertTrue(stringList.equals(newStringList));
+    }
+
+    @Test
+    public void equals_IndexOutOfBoundsException() {
+        setup();
+        assertThrows(NullPointerException.class, () -> stringList.equals(null));
     }
 
     @Test
     public void size() {
+        setupZstring();
+        setup();
+        setupZstring();
+
+        stringList.remove("z");
+        assertEquals(stringList.size(), 10);
     }
 
     @Test
     public void isEmpty() {
+        setupZstring();
+        setupZstring();
+
+        stringList.remove("z");
+        assertTrue(stringList.isEmpty());
     }
 
     @Test
     public void clear() {
+        stringList.clear();
+        assertTrue(stringList.isEmpty());
     }
 
     @Test
     public void toArray() {
+        setup();
+        assertArrayEquals(stringList.toArray(), new String[]{"Q", "w", "e", "r", "t", "y", "U", "i", "o", "p"});
+    }
+
+    private void setup() {
+        stringList.add("Q");
+        stringList.add("w");
+        stringList.add("e");
+        stringList.add("r");
+        stringList.add("t");
+        stringList.add("y");
+        stringList.add("U");
+        stringList.add("i");
+        stringList.add("o");
+        stringList.add("p");
+    }
+
+    private void setupZstring() {
+        int countItems = 10;
+        for (int i = 0; i < countItems; i++) {
+            stringList.add("z");
+        }
     }
 }
