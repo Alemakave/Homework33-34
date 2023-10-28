@@ -17,6 +17,10 @@ public class StringListImpl implements StringList {
 
     @Override
     public String add(String item) {
+        if (item == null) {
+            throw new NullPointerException("Параметр item не должен равняться null");
+        }
+
         if (items.length == countItems) {
             String[] newItemsArray = new String[countItems + 1];
             System.arraycopy(items, 0, newItemsArray, 0, items.length);
@@ -33,6 +37,10 @@ public class StringListImpl implements StringList {
     public String add(int index, String item) {
         if (index < 0 || index >= countItems + 1) {
             throw new IndexOutOfBoundsException(String.format("Индекс %d выходит за пределы фактического количества элементов.", index));
+        }
+
+        if (item == null) {
+            throw new NullPointerException("Параметр item не должен равняться null");
         }
 
         //Создание нового массива
@@ -62,6 +70,11 @@ public class StringListImpl implements StringList {
         if (index >= countItems) {
             throw new IndexOutOfBoundsException(String.format("Индекс %d выходит за пределы фактического количества элементов.", index));
         }
+
+        if (item == null) {
+            throw new NullPointerException("Параметр item не должен равняться null");
+        }
+
         items[index] = item;
 
         return item;
@@ -69,6 +82,10 @@ public class StringListImpl implements StringList {
 
     @Override
     public String remove(String item) {
+        if (item == null) {
+            throw new NullPointerException("Параметр item не должен равняться null");
+        }
+
         int foundedCount = 0;
         for (int i = 0; i < countItems; i++) {
             if (items[i].equals(item)) {
@@ -100,11 +117,19 @@ public class StringListImpl implements StringList {
 
     @Override
     public boolean contains(String item) {
+        if (item == null) {
+            throw new NullPointerException("Параметр item не должен равняться null");
+        }
+
         return indexOf(item) != -1;
     }
 
     @Override
     public int indexOf(String item) {
+        if (item == null) {
+            throw new NullPointerException("Параметр item не должен равняться null");
+        }
+
         for (int i = 0; i < countItems; i++) {
             if (items[i].equals(item)) {
                 return i;
@@ -116,6 +141,10 @@ public class StringListImpl implements StringList {
 
     @Override
     public int lastIndexOf(String item) {
+        if (item == null) {
+            throw new NullPointerException("Параметр item не должен равняться null");
+        }
+
         for (int i = countItems - 1; i >= 0; i--) {
             if (items[i].equals(item)) {
                 return i;

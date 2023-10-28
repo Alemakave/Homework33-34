@@ -208,6 +208,18 @@ public class StringListTest {
         assertArrayEquals(stringList.toArray(), new String[]{"Q", "w", "e", "r", "t", "y", "U", "i", "o", "p"});
     }
 
+    @Test
+    public void allMethodsThrowNullPointerExceptionIfTransferredNullItem() {
+        setup();
+        assertThrows(NullPointerException.class, () -> stringList.add(null));
+        assertThrows(NullPointerException.class, () -> stringList.add(0, null));
+        assertThrows(NullPointerException.class, () -> stringList.set(0, null));
+        assertThrows(NullPointerException.class, () -> stringList.remove(null));
+        assertThrows(NullPointerException.class, () -> stringList.contains(null));
+        assertThrows(NullPointerException.class, () -> stringList.indexOf(null));
+        assertThrows(NullPointerException.class, () -> stringList.lastIndexOf(null));
+    }
+
     private void setup() {
         stringList.add("Q");
         stringList.add("w");
