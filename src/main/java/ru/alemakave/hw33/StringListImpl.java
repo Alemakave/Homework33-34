@@ -169,15 +169,17 @@ public class StringListImpl implements StringList {
      * Перенести все "null" элементы в конец массива
      */
     private void compress() {
-        int lastEmptyIndex = -1;
-
         for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && lastEmptyIndex > 0) {
-                items[lastEmptyIndex] = items[i];
-                items[i] = null;
-                lastEmptyIndex++;
-            } else if (items[i] == null && lastEmptyIndex == -1) {
-                lastEmptyIndex = i;
+            if (items[i] != null) {
+                continue;
+            }
+
+            for (int j = i; j < items.length; j++) {
+                if (items[j] != null) {
+                    items[i] = items[j];
+                    items[j] = null;
+                    break;
+                }
             }
         }
     }
