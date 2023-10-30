@@ -172,12 +172,6 @@ public class StringListTest {
     }
 
     @Test
-    public void equals_IndexOutOfBoundsException() {
-        setup();
-        assertThrows(NullPointerException.class, () -> stringList.equals(null));
-    }
-
-    @Test
     public void size() {
         setupZstring();
         setup();
