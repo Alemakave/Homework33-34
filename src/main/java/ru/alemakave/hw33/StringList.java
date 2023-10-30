@@ -29,7 +29,7 @@ public interface StringList {
     /**
      * Удаление элемента.
      * @param item элемент.
-     * @exception ru.alemakave.hw33.exceptions.NotFoundElement элемент {@code item} отсутствует в списке.
+     * @exception ru.alemakave.hw33.exceptions.NotFoundElementException элемент {@code item} отсутствует в списке.
      * @return удаленный элемент
      */
     String remove(String item);
