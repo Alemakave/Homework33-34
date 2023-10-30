@@ -180,6 +180,7 @@ public class StringListImpl implements StringList {
     @Override
     public void clear() {
         items = new String[0];
+        countItems = 0;
     }
 
     @Override
