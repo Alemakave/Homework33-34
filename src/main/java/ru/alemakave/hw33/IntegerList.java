@@ -1,12 +1,12 @@
 package ru.alemakave.hw33;
 
-public interface StringList {
+public interface IntegerList {
     /**
      * Добавление элемента.
      * @param item элемент.
      * @return добавленный элемент в качестве результата выполнения.
      */
-    String add(String item);
+    Integer add(Integer item);
 
     /**
      * Добавление элемента на определенную позицию списка.
@@ -15,7 +15,7 @@ public interface StringList {
      * @exception IndexOutOfBoundsException {@code index} выходит за пределы фактического количества элементов или массива.
      * @return добавленный элемент.
      */
-    String add(int index, String item);
+    Integer add(int index, Integer item);
 
     /**
      * Установить элемент на определенную позицию, затерев существующий.
@@ -24,7 +24,7 @@ public interface StringList {
      * @exception IndexOutOfBoundsException {@code index} выходит за пределы фактического количества элементов или массива.
      * @return добавленный элемент.
      */
-    String set(int index, String item);
+    Integer set(int index, Integer item);
 
     /**
      * Удаление элемента.
@@ -32,7 +32,7 @@ public interface StringList {
      * @exception ru.alemakave.hw33.exceptions.NotFoundElementException элемент {@code item} отсутствует в списке.
      * @return удаленный элемент
      */
-    String remove(String item);
+    Integer remove(Integer item);
 
     /**
      * Удаление элемента по индексу.
@@ -40,28 +40,28 @@ public interface StringList {
      * @exception IndexOutOfBoundsException {@code index} выходит за пределы фактического количества элементов или массива.
      * @return удаленный элемент
      */
-    String remove(int index);
+    Integer remove(int index);
 
     /**
      * Проверка на существование элемента.
      * @param item проверяемый элемент.
      * @return {@code true} если элемент есть в списке. {@code false} если элемента в списке нет.
      */
-    boolean contains(String item);
+    boolean contains(Integer item);
 
     /**
      * Поиск индекса элемента.
      * @param item искомый элемент.
      * @return индекс элемента или -1 в случае отсутствия.
      */
-    int indexOf(String item);
+    int indexOf(Integer item);
 
     /**
      * Поиск индекса элемента с конца.
      * @param item искомый элемент.
      * @return индекс элемента или -1 в случае отсутствия.
      */
-    int lastIndexOf(String item);
+    int lastIndexOf(Integer item);
 
     /**
      * Получить элемент по индексу.
@@ -69,14 +69,14 @@ public interface StringList {
      * @exception IndexOutOfBoundsException {@code index} выходит за пределы фактического количества элементов или массива.
      * @return найденный элемент
      */
-    String get(int index);
+    Integer get(int index);
 
     /**
      * Сравнить текущий список с другим.
      * @exception NullPointerException передан в {@code otherList} null
      * @return {@code true} текущий список равен переданному. {@code false} текущий список не равен переданному.
      */
-    boolean equals(StringList otherList);
+    boolean equals(IntegerList otherList);
 
     /**
      * @return фактическое количество элементов.
@@ -96,5 +96,5 @@ public interface StringList {
     /**
      * Создать новый массив из строк в списке и вернуть его.
      */
-    String[] toArray();
+    Integer[] toArray();
 }
