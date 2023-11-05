@@ -96,6 +96,6 @@ public class SortedIntegerListImpl extends IntegerListImpl {
     }
 
     private void sort() {
-        SortUtils.selectionSort(items);
+        SortUtils.quickSort(items);
     }
 }
