@@ -43,13 +43,14 @@ public class Main {
 
     private static void homework34() {
 //        findFastedSortMethod();
+        int countIntegers = 1_000_000;
         Random random = new Random(20231028);
         SortedIntegerListImpl sortedIntegerList = new SortedIntegerListImpl();
 
         long start = System.currentTimeMillis();
-        for (int i = 0; i < 1_000_000; i++) {
+        for (int i = 0; i < countIntegers; i++) {
             sortedIntegerList.add(random.nextInt(100));
-            System.out.printf("\r%d", i);
+            System.out.printf("\r%d / %d", i, countIntegers);
         }
         System.out.println(System.currentTimeMillis() - start + " ms.");
 

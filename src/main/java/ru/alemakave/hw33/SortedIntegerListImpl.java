@@ -65,6 +65,28 @@ public class SortedIntegerListImpl extends IntegerListImpl {
         sort();
 
         int resultIndex = Collections.binarySearch(Arrays.asList(items), item);
+        while (resultIndex > 0 && get(resultIndex - 1).intValue() == item.intValue()) {
+            resultIndex--;
+        }
+
+        if (resultIndex < 0) {
+            return -1;
+        } else {
+            return resultIndex;
+        }
+    }
+
+    @Override
+    public int lastIndexOf(Integer item) {
+        if (item == null) {
+            throw new NullPointerException("Параметр item не должен равняться null");
+        }
+        sort();
+
+        int resultIndex = Collections.binarySearch(Arrays.asList(items), item);
+        while (resultIndex > 0 && get(resultIndex + 1).intValue() == item.intValue()) {
+            resultIndex++;
+        }
 
         if (resultIndex < 0) {
             return -1;
@@ -75,22 +97,5 @@ public class SortedIntegerListImpl extends IntegerListImpl {
 
     private void sort() {
         SortUtils.selectionSort(items);
-    }
-
-    @Override
-    protected void compress() {
-        Integer[] newArray = new Integer[size()];
-
-        int j = 0;
-
-        for (Integer item : items) {
-            if (item != null) {
-                newArray[j] = item;
-                j++;
-            }
-        }
-
-        items = newArray;
-        sort();
     }
 }

@@ -16,7 +16,16 @@ class SortedIntegerListImplTest {
 
         integerList.set(5, 128);
         integerList.set(8, 128);
-        assertEquals(integerList.indexOf(128), 4);
+        assertEquals(integerList.indexOf(128), 3);
+    }
+
+    @Test
+    public void lastIndexOf() {
+        integerList = generateArray(10);
+
+        integerList.set(5, 128);
+        integerList.set(8, 128);
+        assertEquals(integerList.lastIndexOf(128), 4);
     }
 
     @RepeatedTest(1000)

@@ -17,9 +17,7 @@ public class IntegerListImpl implements IntegerList {
         }
 
         if (items.length == countItems) {
-            Integer[] newItemsArray = new Integer[countItems + 1];
-            System.arraycopy(items, 0, newItemsArray, 0, items.length);
-            items = newItemsArray;
+            grow();
         }
         items[countItems] = item;
         countItems++;
@@ -41,7 +39,8 @@ public class IntegerListImpl implements IntegerList {
         //Создание нового массива
         Integer[] newItemsArray;
         if (items.length == countItems) {
-            newItemsArray = new Integer[items.length + 1];
+            grow();
+            newItemsArray = new Integer[items.length];
         } else {
             newItemsArray = new Integer[items.length];
         }
@@ -188,6 +187,17 @@ public class IntegerListImpl implements IntegerList {
     @Override
     public String toString() {
         return Arrays.toString(toArray());
+    }
+
+    private void grow() {
+        Integer[] newArray;
+        if (items.length == 0) {
+            newArray = new Integer[1];
+        } else {
+            newArray = new Integer[(int) Math.ceil(items.length * 1.5)];
+            System.arraycopy(items, 0, newArray, 0, items.length);
+        }
+        items = newArray;
     }
 
     /**
